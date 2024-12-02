@@ -49,3 +49,6 @@ swung_counties = pivoted_data[pivoted_data['party_2016'] != pivoted_data['party_
 print("Filtered Data Preview:\n", filteredData.head())
 print(swung_counties)
 
+list_swung = []
+for countyname in swung_counties:
+    list_swung.append(swung_counties['county_name'])
