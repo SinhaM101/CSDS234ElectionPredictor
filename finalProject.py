@@ -20,7 +20,7 @@ version = data['version']
 
 filteredData = data[
     (data['year'].isin([2016, 2020])) &
-    (data['state'].isin(['GEORGIA', 'PENNSYLVANIA', 'WISCONSIN', 'ARIZONA']))
+    (data['state'].isin(['GEORGIA', 'PENNSYLVANIA', 'WISCONSIN', 'ARIZONA','OHIO','FLORIDA''NORTH CAROLINA', 'NEW HAMPSHIRE', 'NEVADA']))
 ]
 
 
@@ -31,13 +31,13 @@ aggregated_data = (
     .sum()
     .reset_index()
 )
-# Find the winning party for each county by identifying the party with the most votes
+
 winning_parties = (
     aggregated_data.loc[aggregated_data.groupby(['year', 'state', 'county_name'])['candidatevotes'].idxmax()]
     .reset_index(drop=True)
 )
 
-# Rename columns for clarity
+
 
 pivoted_data = winning_parties.pivot(index=['state', 'county_name'], columns='year', values='party').reset_index()
 pivoted_data.columns.name = None
