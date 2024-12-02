@@ -24,6 +24,9 @@ ga_path = "dataverse_files/Annual Personal Income by County/CAINC1_GA_1969_2023.
 mi_path = "dataverse_files/Annual Personal Income by County/CAINC1_MI_1969_2023.csv"
 pa_path = "dataverse_files/Annual Personal Income by County/CAINC1_PA_1969_2023.csv"
 wi_path = "dataverse_files/Annual Personal Income by County/CAINC1_WI_1969_2023.csv"
+nh_path = "dataverse_files/Annual Personal Income by County/CAINC1_NH_1969_2023.csv"
+oh_path = "dataverse_files/Annual Personal Income by County/CAINC1_OH_1969_2023.csv"
+nv_path = "dataverse_files/Annual Personal Income by County/CAINC1_NV_1969_2023.csv"
 
 #Load and Flter Paths
 az_data = load_filter_data(az_path)
@@ -31,10 +34,13 @@ ga_data = load_filter_data(ga_path)
 mi_data = load_filter_data(mi_path)
 pa_data = load_filter_data(pa_path)
 wi_data = load_filter_data(wi_path)
+nh_data = load_filter_data(nh_path)
+oh_data = load_filter_data(oh_path)
+nv_data = load_filter_data(nv_path)
 
 #Combine all filtered data into single Data Frame
-combined_data = pd.concat([az_data, ga_data, mi_data, pa_data, wi_data], ignore_index=True)
+combined_data = pd.concat([az_data, ga_data, mi_data, pa_data, wi_data, nh_data, oh_data, nv_data], ignore_index=True)
 print(combined_data)
 
-combined_data.to_csv("Per capita PI by County.csv", index = False)
+combined_data.to_csv("Per_capita_PI_by_County.csv", index = False)
 print("CSV file created successfully.")
