@@ -1,54 +1,51 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
 
-file_path = "dataverse_files/countypres_2000-2020.csv"
-data = pd.read_csv(file_path)
-
-
-
-year = data['year']
-state = data['state']
-state_po = data['state_po']
-county_name = data['county_name']
-county_fips = data['county_fips']
-office = data['office']
-candidate = data['candidate']
-party = data['party']
-candidatevotes = data['candidatevotes']
-totalvotes = data['totalvotes']
-mode = data['mode']
-version = data['version']
-
-filteredData = data[
-    (data['year'].isin([2016, 2020])) &
-    (data['state'].isin(['GEORGIA', 'PENNSYLVANIA', 'WISCONSIN', 'ARIZONA','OHIO','FLORIDA''NORTH CAROLINA', 'NEW HAMPSHIRE', 'NEVADA']))
-]
+from electionResults import *
+from PIbyCDataCleaning import *
 
 
 
-
-aggregated_data = (
-    filteredData.groupby(['year', 'state', 'county_name', 'party'])['candidatevotes']
-    .sum()
-    .reset_index()
-)
-
-winning_parties = (
-    aggregated_data.loc[aggregated_data.groupby(['year', 'state', 'county_name'])['candidatevotes'].idxmax()]
-    .reset_index(drop=True)
-)
+election_data = pd.read_csv('filtered_county_presidential_data.csv')
+per_cap_data = pd.read.csv('Per_capita_PI_by_County.csv')
 
 
+flipped = data[data['flipped'] == 1]
+not_flipped = data[data['flipped'] == 0]
 
-pivoted_data = winning_parties.pivot(index=['state', 'county_name'], columns='year', values='party').reset_index()
-pivoted_data.columns.name = None
-pivoted_data.columns = ['state', 'county_name', 'party_2016', 'party_2020']
-swung_counties = pivoted_data[pivoted_data['party_2016'] != pivoted_data['party_2020']]
+# Calculate Pearson correlation
+correlation, p_value = pearsonr(data['personal_income'], data['flipped'])
 
+# Print correlation result
+print(f"Pearson Correlation: {correlation}")
+print(f"P-value: {p_value}")
 
+# Visualization: Boxplot to compare personal income
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='flipped', y='personal_income', data=data, palette='Set2')
+plt.xticks([0, 1], ['Not Flipped', 'Flipped'])
+plt.title('Personal Income Distribution by Flipping Status')
+plt.xlabel('Flipping Status')
+plt.ylabel('Personal Income')
+plt.show()
 
-print("Filtered Data Preview:\n", filteredData.head())
-print(swung_counties)
+# Visualization: Distribution plot for personal income
+plt.figure(figsize=(10, 6))
+sns.kdeplot(flipped['personal_income'], label='Flipped', shade=True)
+sns.kdeplot(not_flipped['personal_income'], label='Not Flipped', shade=True)
+plt.title('Personal Income Distribution for Flipped vs Not Flipped Counties')
+plt.xlabel('Personal Income')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
 
-list_swung = []
-for countyname in swung_counties:
-    list_swung.append(swung_counties['county_name'])
+# Scatter plot for personal income vs flipping status
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='personal_income', y='flipped', data=data, alpha=0.6)
+plt.title('Scatter Plot of Personal Income vs Flipping Status')
+plt.xlabel('Personal Income')
+plt.ylabel('Flipping Status (0 = Not Flipped, 1 = Flipped)')
+plt.show()
