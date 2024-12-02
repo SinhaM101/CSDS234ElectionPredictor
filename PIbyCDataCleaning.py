@@ -9,7 +9,7 @@ def load_filter_data(file_path, keyword = "Per capita personal income"):
     # List of state names to exclude
     states_to_exclude = [
         "Arizona", "Georgia", "Michigan", "Pennsylvania", "Wisconsin",
-        "New Hampshire", "Ohio", "Nevada"
+        "New Hampshire", "Ohio", "Nevada", "Florida"
     ]
     # Remove rows where GeoName matches any state name in the exclusion list
     filtered_data = filtered_data[~filtered_data['GeoName'].isin(states_to_exclude)]
@@ -27,6 +27,7 @@ wi_path = "dataverse_files/Annual Personal Income by County/CAINC1_WI_1969_2023.
 nh_path = "dataverse_files/Annual Personal Income by County/CAINC1_NH_1969_2023.csv"
 oh_path = "dataverse_files/Annual Personal Income by County/CAINC1_OH_1969_2023.csv"
 nv_path = "dataverse_files/Annual Personal Income by County/CAINC1_NV_1969_2023.csv"
+fl_path = "dataverse_files/Annual Personal Income by County/CAINC1_FL_1969_2023.csv"
 
 #Load and Flter Paths
 az_data = load_filter_data(az_path)
@@ -37,9 +38,10 @@ wi_data = load_filter_data(wi_path)
 nh_data = load_filter_data(nh_path)
 oh_data = load_filter_data(oh_path)
 nv_data = load_filter_data(nv_path)
+fl_data = load_filter_data(fl_path)
 
 #Combine all filtered data into single Data Frame
-combined_data = pd.concat([az_data, ga_data, mi_data, pa_data, wi_data, nh_data, oh_data, nv_data], ignore_index=True)
+combined_data = pd.concat([az_data, ga_data, mi_data, pa_data, wi_data, nh_data, oh_data, nv_data, fl_data], ignore_index=True)
 print(combined_data)
 
 combined_data.to_csv("Per_capita_PI_by_County.csv", index = False)
