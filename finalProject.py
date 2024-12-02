@@ -33,10 +33,9 @@ pivoted_data = winning_parties.pivot(index=['state', 'county_name'], columns='ye
 pivoted_data.columns.name = None
 pivoted_data.columns = ['state', 'county_name', 'party_2016', 'party_2020']
 swung_counties = pivoted_data[pivoted_data['party_2016'] != pivoted_data['party_2020']]
-print("Counties that swung between 2016 and 2020:")
-print(swung_counties)
 
 
-print("\n\nFiltered Data Preview:\n", filteredData.head())
+
+print("Filtered Data Preview:\n", filteredData.head())
 
 
