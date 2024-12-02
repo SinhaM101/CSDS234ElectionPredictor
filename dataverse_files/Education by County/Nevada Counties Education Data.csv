@@ -1,0 +1,32 @@
+﻿Education (At least bachelor's degree) for Nevada by County
+Population Ages 25+
+"All Races (includes Hispanic/Latino), Both Sexes, 2018-2022"
+Sorted by Value
+
+County,FIPS,Value (Percent),People (Education: At Least Bachelor's Degree),Rank within US (of 3143 counties)
+"Nevada",32000,26.5,572003,"47 of 52"
+"United States",00000,34.3,77751347,"N/A"
+"Pershing County",32027,10.1,504,"3,093"
+"Nye County",32023,12.5,5063,"2,904"
+"White Pine County",32033,13.3,895,"2,838"
+"Lander County",32015,14.0,541,"2,755"
+"Mineral County",32021,14.6,478,"2,664"
+"Eureka County",32011,15.2,169,"2,578"
+"Lincoln County",32017,15.3,489,"2,553"
+"Lyon County",32019,16.1,6937,"2,420"
+"Elko County",32007,17.0,5898,"2,281"
+"Churchill County",32001,17.6,3090,"2,176"
+"Humboldt County",32013,20.8,2360,"1,592"
+"Esmeralda County",32009,24.3,212,"1,128"
+"Carson City",32510,24.3,10205,"1,123"
+"Clark County",32003,26.4,411859,"918"
+"Douglas County",32005,31.3,12170,"587"
+"Storey County",32029,31.4,976,"586"
+"Washoe County",32031,32.5,110157,"511"
+
+Suggested Citation:
+HDPulse: An Ecosystem of Minority Health and Health Disparities Resources. National Institute on Minority Health and Health Disparities. Created 12/2/2024. Available from https://hdpulse.nimhd.nih.gov
+
+Notes:
+Source: Demographic data provided by the Census Bureau (http://www.census.gov/) & the American Community Survey (http://www.census.gov/acs/www/).
+"For more information about Education (At least bachelor's degree), see the dictionary at http://hdpulse.nimhd.nih.gov/data/dictionary.php#education."
