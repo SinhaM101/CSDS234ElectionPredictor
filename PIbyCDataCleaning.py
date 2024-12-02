@@ -1,10 +1,21 @@
 import pandas as pd
 #Monish Sinha
-
+#Clean the Per capita personal income by county
 def load_filter_data(file_path, keyword = "Per capita personal income"):
     data = pd.read_csv(file_path)
     #filter data to include only rows that include keyword
     filtered_data = data[data['Description'].str.contains(keyword, case = False, na = False)]
+    #remove rows where GeoName is a state name
+    # List of state names to exclude
+    states_to_exclude = [
+        "Arizona", "Georgia", "Michigan", "Pennsylvania", "Wisconsin",
+        "New Hampshire", "Ohio", "Nevada"
+    ]
+    # Remove rows where GeoName matches any state name in the exclusion list
+    filtered_data = filtered_data[~filtered_data['GeoName'].isin(states_to_exclude)]
+
+    columns_to_keep = ["GeoFIPS", "GeoName", "Region", "Description"] + [str(year) for year in range(2016, 2021)]
+    filtered_data = filtered_data[columns_to_keep]
     return filtered_data
 
 # File Paths
@@ -21,5 +32,9 @@ mi_data = load_filter_data(mi_path)
 pa_data = load_filter_data(pa_path)
 wi_data = load_filter_data(wi_path)
 
-print(az_data)
+#Combine all filtered data into single Data Frame
+combined_data = pd.concat([az_data, ga_data, mi_data, pa_data, wi_data], ignore_index=True)
+print(combined_data)
 
+combined_data.to_csv("Per capita PI by County.csv", index = False)
+print("CSV file created successfully.")
