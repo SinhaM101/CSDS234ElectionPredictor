@@ -1,0 +1,25 @@
+﻿Education (At least bachelor's degree) for New Hampshire by County
+Population Ages 25+
+"All Races (includes Hispanic/Latino), Both Sexes, 2018-2022"
+Sorted by Value
+
+County,FIPS,Value (Percent),People (Education: At Least Bachelor's Degree),Rank within US (of 3143 counties)
+"United States",00000,34.3,77751347,"N/A"
+"New Hampshire",33000,39.0,389448,"9 of 52"
+"Coos County",33007,20.4,5003,"1,659"
+"Sullivan County",33019,30.1,9843,"654"
+"Belknap County",33001,31.9,15327,"548"
+"Cheshire County",33005,34.4,18749,"422"
+"Merrimack County",33013,36.8,40799,"320"
+"Carroll County",33003,37.5,15014,"303"
+"Strafford County",33017,38.7,34019,"264"
+"Hillsborough County",33011,40.2,121391,"226"
+"Grafton County",33009,43.3,28201,"170"
+"Rockingham County",33015,43.6,101102,"162"
+
+Suggested Citation:
+HDPulse: An Ecosystem of Minority Health and Health Disparities Resources. National Institute on Minority Health and Health Disparities. Created 12/2/2024. Available from https://hdpulse.nimhd.nih.gov
+
+Notes:
+Source: Demographic data provided by the Census Bureau (http://www.census.gov/) & the American Community Survey (http://www.census.gov/acs/www/).
+"For more information about Education (At least bachelor's degree), see the dictionary at http://hdpulse.nimhd.nih.gov/data/dictionary.php#education."

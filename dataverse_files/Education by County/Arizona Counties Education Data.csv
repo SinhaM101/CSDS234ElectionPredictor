@@ -1,0 +1,30 @@
+﻿Education (At least bachelor's degree) for Arizona by County
+Population Ages 25+
+"All Races (includes Hispanic/Latino), Both Sexes, 2018-2022"
+Sorted by Value
+
+County,FIPS,Value (Percent),People (Education: At Least Bachelor's Degree),Rank within US (of 3143 counties)
+"Arizona",04000,31.8,1551454,"30 of 52"
+"United States",00000,34.3,77751347,"N/A"
+"La Paz County",04012,12.4,1633,"2,915"
+"Apache County",04001,13.8,5819,"2,795"
+"Graham County",04009,14.0,3399,"2,771"
+"Mohave County",04015,14.4,23879,"2,697"
+"Yuma County",04027,16.4,21570,"2,369"
+"Greenlee County",04011,16.7,976,"2,330"
+"Navajo County",04017,17.3,12208,"2,234"
+"Gila County",04007,18.1,7175,"2,103"
+"Pinal County",04021,21.4,64850,"1,498"
+"Santa Cruz County",04023,23.5,7227,"1,230"
+"Cochise County",04003,26.7,23549,"894"
+"Yavapai County",04025,28.7,52907,"733"
+"Pima County",04019,35.0,246889,"397"
+"Maricopa County",04013,35.0,1045073,"396"
+"Coconino County",04005,39.6,34300,"236"
+
+Suggested Citation:
+HDPulse: An Ecosystem of Minority Health and Health Disparities Resources. National Institute on Minority Health and Health Disparities. Created 12/2/2024. Available from https://hdpulse.nimhd.nih.gov
+
+Notes:
+Source: Demographic data provided by the Census Bureau (http://www.census.gov/) & the American Community Survey (http://www.census.gov/acs/www/).
+"For more information about Education (At least bachelor's degree), see the dictionary at http://hdpulse.nimhd.nih.gov/data/dictionary.php#education."
