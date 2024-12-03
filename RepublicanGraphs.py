@@ -78,5 +78,5 @@ geo_merged.plot(
 ax2.set_title('Per Capita Income by County (2020)', fontsize=24)
 ax2.axis('off')
 plt.tight_layout()
-plt.savefig("income_map_fixed.png", dpi=300)  # Save as a high-resolution image
+plt.savefig("republican_income_map_fixed.png", dpi=300)  # Save as a high-resolution image
 plt.show()
