@@ -3,12 +3,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
+from electionResults import *
 # Load your dataset
 # Ensure it has columns: ['County', 'State', 'Year', '% Bachelor's Degree', 'Winner']
 data = pd.read_csv('')
 
 # Filter data for swing states
-swing_states = ['Florida', 'Pennsylvania', 'Wisconsin', 'Michigan', 'Arizona']  # Example states
+swing_states = ['GEORGIA', 'PENNSYLVANIA', 'WISCONSIN', 'ARIZONA','OHIO','FLORIDA''NORTH CAROLINA', 'NEW HAMPSHIRE', 'NEVADA']
 data = data[data['State'].isin(swing_states)]
 
 # Select features and target
