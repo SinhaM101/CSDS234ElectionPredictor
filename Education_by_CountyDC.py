@@ -34,13 +34,16 @@ def load_clean_csv(file_path, state):
     # Add a new column for State
     data['State'] = state  # Add the state name to a new column
 
+    # Remove the last word in the County column
+    data['County'] = data['County'].str.rsplit(' ', n=1).str[0]
+
     # Adjust column order: Move the State column to the right of County
     column_order = ['County', 'State'] + [col for col in data.columns if col not in ['County', 'State']]
     data = data[column_order]
 
     # Remove rows where "GeoName" column equals "United States"
     if 'County' in data.columns:  # Ensure the column exists
-        data = data[data['County'] != "United States"]
+        data = data[data['County'] != "United"]
     return data
 
 # Process each file
