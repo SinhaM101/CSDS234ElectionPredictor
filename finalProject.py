@@ -10,42 +10,38 @@ from PIbyCDataCleaning import *
 
 
 election_data = pd.read_csv('filtered_county_presidential_data.csv')
-per_cap_data = pd.read.csv('Per_capita_PI_by_County.csv')
+income_data = pd.read_csv('Per_capita_PI_by_County.csv')
 
 
-flipped = data[data['flipped'] == 1]
-not_flipped = data[data['flipped'] == 0]
+income_data['GeoName'] = income_data['GeoName'].str.upper()
 
-# Calculate Pearson correlation
-correlation, p_value = pearsonr(data['personal_income'], data['flipped'])
+# Filter income data to include only relevant counties
+income_data = income_data[income_data['GeoName'].isin(totalcounties)]
 
-# Print correlation result
-print(f"Pearson Correlation: {correlation}")
-print(f"P-value: {p_value}")
+# Step 2: Assign flipped status
+income_data['flipped'] = income_data['GeoName'].apply(
+    lambda x: 1 if x in swung_counties else 0
+)
 
-# Visualization: Boxplot to compare personal income
-plt.figure(figsize=(10, 6))
-sns.boxplot(x='flipped', y='personal_income', data=data, palette='Set2')
+# Step 3: Calculate year-to-year changes
+income_data['income_change'] = income_data['2017'] - income_data['2016']
+
+# Step 4: Correlation Analysis
+corr, p_value = pearsonr(income_data['income_change'], income_data['flipped'])
+print(f"Pearson Correlation (Income Change vs Flipped): {corr:.2f}, P-value: {p_value:.2e}")
+
+# Step 5: Visualizations
+# Boxplot for income change
+sns.boxplot(x='flipped', y='income_change', data=income_data)
 plt.xticks([0, 1], ['Not Flipped', 'Flipped'])
-plt.title('Personal Income Distribution by Flipping Status')
-plt.xlabel('Flipping Status')
-plt.ylabel('Personal Income')
+plt.title('Income Change (2017-2016) by Flipped Status')
+plt.ylabel('Income Change')
+plt.xlabel('Flipped Status')
 plt.show()
 
-# Visualization: Distribution plot for personal income
-plt.figure(figsize=(10, 6))
-sns.kdeplot(flipped['personal_income'], label='Flipped', shade=True)
-sns.kdeplot(not_flipped['personal_income'], label='Not Flipped', shade=True)
-plt.title('Personal Income Distribution for Flipped vs Not Flipped Counties')
-plt.xlabel('Personal Income')
-plt.ylabel('Density')
-plt.legend()
-plt.show()
-
-# Scatter plot for personal income vs flipping status
-plt.figure(figsize=(10, 6))
-sns.scatterplot(x='personal_income', y='flipped', data=data, alpha=0.6)
-plt.title('Scatter Plot of Personal Income vs Flipping Status')
-plt.xlabel('Personal Income')
-plt.ylabel('Flipping Status (0 = Not Flipped, 1 = Flipped)')
+# Scatter plot for income change vs flipped status
+sns.scatterplot(x='income_change', y='flipped', data=income_data)
+plt.title('Income Change vs. Flipped Status')
+plt.ylabel('Flipped Status')
+plt.xlabel('Income Change (2017-2016)')
 plt.show()
