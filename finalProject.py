@@ -40,30 +40,20 @@ plt.tight_layout()
 # Show the plot
 plt.show()
 
-X = income_data[['Income_Difference_2020_2016']].values
-y = income_data['Flipped'].values
+income_data['Swing_Direction'] = income_data['County'].apply(
+    lambda x: 'Left' if x in list_swung_left else ('Right' if x in list_swung_right else 'No Swing')
+)
 
-# Standardize the independent variable for better logistic regression performance
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+swing_data = income_data[income_data['Swing_Direction'].isin(['Left', 'Right'])]
 
-# Fit the logistic regression model
-log_reg = LogisticRegression()
-log_reg.fit(X_scaled, y)
-
-# Generate predictions for a range of income changes
-income_change_range = np.linspace(X.min(), X.max(), 300).reshape(-1, 1)
-income_change_range_scaled = scaler.transform(income_change_range)
-probabilities = log_reg.predict_proba(income_change_range_scaled)[:, 1]
-
-# Plot the logistic regression curve
-plt.figure(figsize=(8, 6))
-plt.plot(income_change_range, probabilities, label='Logistic Regression', color='red')
-sns.scatterplot(data=income_data, x='Income_Difference_2020_2016', y='Flipped', alpha=0.6, color='blue', label='Data Points')
-plt.title('Logistic Regression: Income Change vs Flipping Probability')
-plt.xlabel('Income Change (2020 - 2016)')
-plt.ylabel('Flipping Probability')
-plt.legend()
-plt.grid(True)
+# Create the box plot
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=swing_data, x='Swing_Direction', y='Income_Difference_2020_2016', palette='Set2')
+plt.title('Income Change (2016-2020) by Swing Direction')
+plt.xlabel('Swing Direction')
+plt.ylabel('Income Change (2020 - 2016)')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
+
+# Show the plot
 plt.show()
