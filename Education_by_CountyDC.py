@@ -37,7 +37,7 @@ def load_clean_csv(file_path, state):
     data['county'] = data['county'].str.rsplit(' ', n=1).str[0]
 
     # Adjust column order: Move the State column to the right of County
-    column_order = ['county', 'State'] + [col for col in data.columns if col not in ['County', 'State']]
+    column_order = ['county', 'State'] + [col for col in data.columns if col not in ['county', 'State']]
     data = data[column_order]
 
     # Remove rows where "GeoName" column equals "United States"
