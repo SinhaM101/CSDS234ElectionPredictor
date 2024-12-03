@@ -1,0 +1,19 @@
+State,Candidate,Should be illegal in all cases,Should be illegal in most cases,Should be legal in all cases,Should be legal in most cases
+Arizona,Biden %,8,33,81,63
+Arizona,Trump %,90,65,17,36
+Florida,Biden %,6,34,74,63
+Florida,Trump %,92,64,25,36
+Georgia,Biden %,6,36,86,63
+Georgia,Trump %,92,62,13,36
+Michigan,Biden %,7,36,86,69
+Michigan,Trump %,91,62,12,29
+Nevada,Biden %,8,37,85,67
+Nevada,Trump %,90,62,14,32
+New Hampshire,Biden %,9,43,92,76
+New Hampshire,Trump %,88,55,6,23
+Ohio,Biden %,7,35,80,65
+Ohio,Trump %,91,63,18,33
+Pennsylvania,Biden %,5,36,84,70
+Pennsylvania,Trump %,93,61,15,28
+Wisconsin,Biden %,7,37,87,73
+Wisconsin,Trump %,91,60,11,26
