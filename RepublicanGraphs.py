@@ -64,19 +64,25 @@ plt.tight_layout()
 plt.savefig("republican_vote_share_map.png", dpi=300)  # Save as a high-resolution image (optional)
 #plt.show()
 
-# Map of Income
+# Filter for counties where Republicans had a majority vote share
+republican_majority = geo_merged[geo_merged['republican_vote_share'] > 0.5]
+
+# Map of Income for Republican-majority counties
+# Map of Income for Republican-majority counties
 fig2, ax2 = plt.subplots(figsize=(20, 20))  # Increase size for clarity
+
+# Plot the map
 geo_merged.plot(
-    column='income',
-    cmap='Greens',
-    legend=False,
-    missing_kwds={"color": "grey", "label": "No Data"},  # Define how missing data appears
+    column='income',  # Plot income data
+    cmap='Greens',  # Use a green color map for income
+    legend=False,  # Add a legend to indicate income range
+    missing_kwds={"color": "grey", "label": "No Data"},  # Ensure missing data appears as grey
     ax=ax2
 )
 
-
-ax2.set_title('Per Capita Income by County Republican(2020)', fontsize=24)
-ax2.axis('off')
+# Set the title for the map
+ax2.set_title('Per Capita Income by Republican County (2020)', fontsize=24)
+ax2.axis('off')  # Remove axes for better visualization
 plt.tight_layout()
-plt.savefig("republican_income_map_fixed.png", dpi=300)  # Save as a high-resolution image
+plt.savefig("republican_income_map_filtered.png", dpi=300)  # Save as a high-resolution image
 plt.show()
