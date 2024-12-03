@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import pearsonr
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 
 from electionResults import *
 from PIbyCDataCleaning import *
@@ -32,6 +34,24 @@ plt.bar(grouped_data['Flipped'], grouped_data['Income_Difference_2020_2016'], co
 plt.title('Average Income Change (2016 to 2020) by Flipping Status')
 plt.xlabel('Flipping Status')
 plt.ylabel('Average Income Change')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+
+# Show the plot
+plt.show()
+
+income_data['Swing_Direction'] = income_data['County'].apply(
+    lambda x: 'Left' if x in list_swung_left else ('Right' if x in list_swung_right else 'No Swing')
+)
+
+swing_data = income_data[income_data['Swing_Direction'].isin(['Left', 'Right'])]
+
+# Create the box plot
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=swing_data, x='Swing_Direction', y='Income_Difference_2020_2016', palette='Set2')
+plt.title('Income Change (2016-2020) by Swing Direction')
+plt.xlabel('Swing Direction')
+plt.ylabel('Income Change (2020 - 2016)')
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 

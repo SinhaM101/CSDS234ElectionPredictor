@@ -57,3 +57,7 @@ print (totalcounties)
 print('\n\n\n')
 print(list_swung)
 print(swung_counties)
+swung_counties_right = swung_counties[swung_counties['party_2020'] == 'REPUBLICAN']
+list_swung_right = list(swung_counties_right['county_name'])
+swung_counties_left = swung_counties[swung_counties['party_2020'] == 'DEMOCRAT']
+list_swung_left = list(swung_counties_left['county_name'])
