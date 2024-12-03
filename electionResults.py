@@ -45,8 +45,14 @@ pivoted_data.columns = ['state', 'county_name', 'party_2016', 'party_2020']
 swung_counties = pivoted_data[pivoted_data['party_2016'] != pivoted_data['party_2020']]
 
 
+democrat_counties_2020 = winning_parties[
+    (winning_parties['year'] == 2020) & (winning_parties['party'] == 'DEMOCRAT')
+]['county_name'].tolist()
 
 
+republican_counties_2020 = winning_parties[
+    (winning_parties['year'] == 2020) & (winning_parties['party'] == 'REPUBLICAN')
+]['county_name'].tolist()
 
 list_swung = list(swung_counties['county_name'])
 
