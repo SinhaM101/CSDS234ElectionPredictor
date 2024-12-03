@@ -62,12 +62,7 @@ fig2, ax2 = plt.subplots(figsize=(20, 20))
 geo_merged.plot(
     column='income',
     cmap='Greens',  # Changed to 'Greens' for variety
-    legend=True,  # Add legend for income map
-    legend_kwds={
-        'orientation': "vertical",  # Vertical legend for income
-        'shrink': 0.5,
-        'aspect': 20
-    },
+    legend=False,  # Add legend for income map
     missing_kwds={"color": "grey", "label": "No Data"},
     ax=ax2
 )
