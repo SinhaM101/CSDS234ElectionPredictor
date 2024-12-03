@@ -56,4 +56,27 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 
 # Show the plot
+#plt.show()
+
+
+data_path = 'Updated_Education_Data.csv'
+education_data = pd.read_csv(data_path)
+
+education_data['Swing_Direction'] = education_data['County'].apply(
+    lambda x: 'Left' if x in list_swung_left else ('Right' if x in list_swung_right else 'No Swing')
+)
+swing_dader = education_data[education_data['Swing_Direction'].isin(['Left', 'Right'])]
+
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(
+    x='Swing_Direction',
+    y='Value (Percent)',
+    data=swing_dader,
+    palette='coolwarm'
+)
+plt.title("Education Levels by Swing Direction (2020 Election)", fontsize=16)
+plt.xlabel("Swing Direction", fontsize=12)
+plt.ylabel("% with At Least a Bachelor's Degree", fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
