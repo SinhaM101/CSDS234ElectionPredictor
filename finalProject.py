@@ -10,36 +10,30 @@ from PIbyCDataCleaning import *
 
 
 election_data = pd.read_csv('filtered_county_presidential_data.csv')
-income_data = pd.read_csv('Per_capita_PI_by_County.csv')
+income_data = pd.read_csv('Per_capita_PI_by_County_Uppercase.csv')
+income_data['2016'] = pd.to_numeric(income_data['2016'], errors='coerce')
+income_data['2020'] = pd.to_numeric(income_data['2020'], errors='coerce')
+income_data = income_data[income_data['County'].isin(totalcounties)]
+income_data['Flipped'] = income_data['County'].apply(lambda x: 1 if x in list_swung else 0)
+income_data['Income_Difference_2020_2016'] = income_data['2020'] - income_data['2016']
 
 
+income_column = 'Income_Difference_2020_2016'
+flipped_column = 'Flipped'
 
-# Filter income data to include only relevant counties
-income_data = income_data[income_data['GeoName'].isin(totalcounties)]
+grouped_data = income_data.groupby('Flipped')['Income_Difference_2020_2016'].mean().reset_index()
 
-# Assign flipped status
-income_data['flipped'] = income_data['GeoName'].apply(
-    lambda x: 1 if x in list_swung else 0
-)
+# Map flipped status to descriptive labels
+grouped_data['Flipped'] = grouped_data['Flipped'].map({0: 'Not Flipped', 1: 'Flipped'})
 
-# Calculate year-to-year changes
-income_data['income_change'] = income_data['2017'] - income_data['2016']
+# Plot the bar chart
+plt.figure(figsize=(8, 6))
+plt.bar(grouped_data['Flipped'], grouped_data['Income_Difference_2020_2016'], color=['blue', 'orange'])
+plt.title('Average Income Change (2016 to 2020) by Flipping Status')
+plt.xlabel('Flipping Status')
+plt.ylabel('Average Income Change')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
 
-# Correlation Analysis
-corr, p_value = pearsonr(income_data['income_change'], income_data['flipped'])
-print(f"Pearson Correlation (Income Change vs Flipped): {corr:.2f}, P-value: {p_value:.2e}")
-
-# Visualizations
-# Boxplot for income change
-sns.boxplot(x='flipped', y='income_change', data=income_data)
-plt.xticks([0, 1], ['Not Flipped', 'Flipped'])
-plt.title('Income Change (2017-2016) by Flipped Status')
-plt.ylabel('Income Change')
-plt.xlabel('Flipped Status')
-plt.show()
-# Scatter plot for income change vs flipped status
-sns.scatterplot(x='income_change', y='flipped', data=income_data)
-plt.title('Income Change vs. Flipped Status')
-plt.ylabel('Flipped Status')
-plt.xlabel('Income Change (2017-2016)')
+# Show the plot
 plt.show()
