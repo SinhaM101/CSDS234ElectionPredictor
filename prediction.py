@@ -1,41 +1,48 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import accuracy_score
 
-from electionResults import *
-# Load your dataset
-# Ensure it has columns: ['County', 'State', 'Year', '% Bachelor's Degree', 'Winner']
-data = pd.read_csv('')
+# Load dataset
+data_path = "Education by County Predictive/PENNSYLVANIADATA.csv"  # Replace with your CSV file name
+try:
+    data = pd.read_csv(data_path)
+except FileNotFoundError:
+    print("File not found. Make sure 'key_counties_data.csv' is in the same directory.")
+    exit()
 
-# Filter data for swing states
-swing_states = ['GEORGIA', 'PENNSYLVANIA', 'WISCONSIN', 'ARIZONA','OHIO','FLORIDA''NORTH CAROLINA', 'NEW HAMPSHIRE', 'NEVADA']
-data = data[data['State'].isin(swing_states)]
+# Check if required columns exist
+required_columns = ['Bachelors_Degree_Percent', 'Winner']
+if not all(col in data.columns for col in required_columns):
+    print(f"Dataset must contain the following columns: {', '.join(required_columns)}")
+    exit()
 
-# Select features and target
-features = ['% Bachelor\'s Degree']  # Add more features if available
-target = 'Winner'  # Binary: 0 (Right) or 1 (Left)
+# Encode the Winner column into numerical values (e.g., 0 for Candidate A, 1 for Candidate B)
+data['Winner'] = data['Winner'].astype('category').cat.codes
 
-X = data[features]
-y = data[target]
+# Features and target
+X = data[['Bachelors_Degree_Percent']]
+y = data['Winner']
 
-# Train-test split
+# Split dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
+# Train the Random Forest Classifier
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
 
-# Make predictions
+# Predict on the test set
 y_pred = model.predict(X_test)
 
-# Evaluate
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print(classification_report(y_test, y_pred))
+# Calculate and display accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Model Accuracy: {accuracy:.2f}")
 
-# Predict for a specific year
-new_year_data = pd.DataFrame({
-    '% Bachelor\'s Degree': [30, 35, 40, 25, 50]  # Example percentages for swing counties
-})
-predictions = model.predict(new_year_data)
-print("Predicted Winners:", predictions)
+# Predict the winner for the entire dataset
+data['Predicted_Winner'] = model.predict(X)
+data['Predicted_Winner'] = data['Predicted_Winner'].map({idx: cat for cat, idx in data['Winner'].astype('category').cat.categories.items()})
+
+# Save the predictions to a new CSV file
+output_file = "predicted_election_winners.csv"
+data.to_csv(output_file, index=False)
+print(f"Predictions saved to {output_file}")
