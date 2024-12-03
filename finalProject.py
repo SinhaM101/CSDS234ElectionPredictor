@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import pearsonr
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 
 from electionResults import *
 from PIbyCDataCleaning import *
@@ -36,4 +38,32 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 
 # Show the plot
+plt.show()
+
+X = income_data[['Income_Difference_2020_2016']].values
+y = income_data['Flipped'].values
+
+# Standardize the independent variable for better logistic regression performance
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Fit the logistic regression model
+log_reg = LogisticRegression()
+log_reg.fit(X_scaled, y)
+
+# Generate predictions for a range of income changes
+income_change_range = np.linspace(X.min(), X.max(), 300).reshape(-1, 1)
+income_change_range_scaled = scaler.transform(income_change_range)
+probabilities = log_reg.predict_proba(income_change_range_scaled)[:, 1]
+
+# Plot the logistic regression curve
+plt.figure(figsize=(8, 6))
+plt.plot(income_change_range, probabilities, label='Logistic Regression', color='red')
+sns.scatterplot(data=income_data, x='Income_Difference_2020_2016', y='Flipped', alpha=0.6, color='blue', label='Data Points')
+plt.title('Logistic Regression: Income Change vs Flipping Probability')
+plt.xlabel('Income Change (2020 - 2016)')
+plt.ylabel('Flipping Probability')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
 plt.show()
