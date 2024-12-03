@@ -53,3 +53,6 @@ list_swung = list(swung_counties['county_name'])
 totalcounties = list(filteredData['county_name'].unique())
 
 list_not_swung = [county for county in totalcounties if county not in list_swung]
+print (totalcounties)
+print('\n\n\n')
+print(list_swung)
