@@ -14,8 +14,12 @@ def load_filter_data(file_path, keyword = "Per capita personal income"):
     # Remove rows where GeoName matches any state name in the exclusion list
     filtered_data = filtered_data[~filtered_data['GeoName'].isin(states_to_exclude)]
 
-    columns_to_keep = ["GeoFIPS", "GeoName", "Region", "Description"] + [str(year) for year in range(2016, 2021)]
+    columns_to_keep = ["GeoName", "Region", "Description"] + [str(year) for year in range(2016, 2021)]
     filtered_data = filtered_data[columns_to_keep]
+
+    # Remove specific row with GeoName "Shawano (includes Menominee), WI*"
+    filtered_data = filtered_data[filtered_data['GeoName'] != "Shawano (includes Menominee), WI*"]
+
     return filtered_data
 
 # File Paths
