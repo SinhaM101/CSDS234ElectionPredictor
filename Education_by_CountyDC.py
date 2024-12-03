@@ -5,11 +5,10 @@ import pandas as pd
 # File Paths
 file_paths = {
     "Arizona": "dataverse_files/Education by County/Arizona Counties Education Data.csv",
-    "Georgia": "dataverse_files/Education by County/Georgia Counties Education Data.csv",
+    "Georgia": "GEORGIA DATA.csv",
     "Michigan": "dataverse_files/Education by County/Michigan Counties Education Data.csv",
-    "Pennsylvania": "dataverse_files/Education by County/Pennsylvania Counties Education Data.csv",
-    "Wisconsin": "dataverse_files/Education by County/Wisconsin Counties Education Data.csv",
-    "New Hampshire": "dataverse_files/Education by County/New Hampshire Counties Education Data.csv",
+    "Pennsylvania": "PENNSYLVANIADATA.csv",
+    "Wisconsin": "WISCONSINDATA.csv",
     "Ohio": "dataverse_files/Education by County/Ohio Counties Education Data.csv",
     "Nevada": "dataverse_files/Education by County/Nevada Counties Education Data.csv",
     "Florida": "dataverse_files/Education by County/Florida Counties Education Data.csv",
@@ -26,7 +25,7 @@ def load_clean_csv(file_path, state):
     # List of state names to exclude
     states_to_exclude = [
         "Arizona", "Georgia", "Michigan", "Pennsylvania", "Wisconsin",
-        "New Hampshire", "Ohio", "Nevada", "Florida"
+         "Ohio", "Nevada", "Florida"
     ]
     # Remove rows where GeoName matches any state name in the exclusion list
     data = data[~data['County'].isin(states_to_exclude)]
@@ -56,6 +55,6 @@ combined_data = pd.concat(cleaned_data.values(), ignore_index=True)
 
 
 # Save the cleaned data to a CSV file
-combined_data.to_csv("Cleaned_Education_Data.csv", index=False)
+combined_data.to_csv("NewEducationCraftedData", index=False)
 
 print("Cleaned data saved to 'Cleaned_Education_Data.csv'.")
