@@ -80,3 +80,4 @@ plt.xlabel("Swing Direction", fontsize=12)
 plt.ylabel("% with At Least a Bachelor's Degree", fontsize=12)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
+

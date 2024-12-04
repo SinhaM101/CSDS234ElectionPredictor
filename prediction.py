@@ -15,7 +15,6 @@ data['Winner'] = data['County'].apply(
     lambda x: 'REPUBLICAN' if x in republican_counties_2020 
     else ('DEMOCRAT' if x in democrat_counties_2020 else 'UNKNOWN')
 )
-print(data.head())
 
 
 
