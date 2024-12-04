@@ -81,3 +81,53 @@ plt.ylabel("% with At Least a Bachelor's Degree", fontsize=12)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 
+
+
+file_path = 'Per_capita_PI_by_County_Uppercase.csv'
+infdata = pd.read_csv(file_path)
+
+
+inflation_factors = {
+    2016: 240.0,
+    2017: 245.0,
+    2018: 250.0,
+    2019: 255.0,
+    2020: 260.0
+}
+
+# Normalize inflation factors to 2020
+adjustment_factors = {year: inflation_factors[2020] / value for year, value in inflation_factors.items()}
+
+# Adjust income values for inflation
+adjusted_data = infdata.copy()
+for year in range(2016, 2021):
+    adjusted_data[str(year)] *= adjustment_factors[year]
+
+# Reshape data for plotting
+melted_data = adjusted_data.melt(id_vars=["County", "State"], 
+                                 value_vars=[str(year) for year in range(2016, 2021)],
+                                 var_name="Year", 
+                                 value_name="Adjusted Income")
+melted_data["Year"] = melted_data["Year"].astype(int)
+
+# Specify the counties to plot
+selected_counties = list_swung_left  # Replace with your list of counties
+
+# Filter data for the selected counties
+selected_data = melted_data[melted_data["County"].isin(selected_counties)]
+
+# Plotting
+plt.figure(figsize=(12, 8))
+for county in selected_counties:
+    county_data = selected_data[selected_data["County"] == county]
+    plt.plot(county_data["Year"], county_data["Adjusted Income"], marker='o', label=county)
+
+plt.title("Per Capita Personal Income by Counties that Swung Left (Inflation-Adjusted)", fontsize=14)
+plt.xlabel("Year", fontsize=12)
+plt.ylabel("Adjusted Income (2020 Dollars)", fontsize=12)
+plt.legend(title="County", fontsize=10)
+plt.grid(True)
+plt.show()
+
+
+

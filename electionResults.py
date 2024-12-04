@@ -65,6 +65,10 @@ swung_counties_right = swung_counties[swung_counties['party_2020'] == 'REPUBLICA
 list_swung_right = list(swung_counties_right['county_name'])
 swung_counties_left = swung_counties[swung_counties['party_2020'] == 'DEMOCRAT']
 list_swung_left = list(swung_counties_left['county_name'])
+list_swung_left.pop(0)
+list_swung_left.pop(0)
+list_swung_left.pop(0)
+list_swung_left.remove("MONTGOMERY")
 
 
-
+print(list_swung_left)
